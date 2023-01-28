@@ -16,24 +16,51 @@ public class VigenereCipher implements CipherInterface {
 
     @Override
     public String encrypt() {
-        char[] msg = message.toCharArray();
-        int msgLen = msg.length;
-        char[] key = keyWord.toCharArray();
-        char encryptedMsg[] = new char[msgLen];
-        for(int i = 0; i < msgLen; ++i)
-            encryptedMsg[i] = (char) (((msg[i] + key[i]) % 26) + 'A');
-        return encryptedMsg.toString();
+        StringBuilder result = new StringBuilder();
+        String messageUpper = message.toUpperCase();
+        String keyWordUpper = removeNumbersFromString(keyWord).toUpperCase();
+        for (int i = 0, j = 0; i < messageUpper.length(); i++)
+        {
+            char c = messageUpper.charAt(i);
+            if (c < 'A' || c > 'Z')
+                continue;
+            result.append((char) ((c + keyWordUpper.charAt(j) - 2 * 'A') % 26 + 'A'));
+            j = ++j % keyWordUpper.length();
+        }
+        return result.toString();
     }
 
     @Override
     public String decrypt() {
-        char[] msg = message.toCharArray();
-        int msgLen = msg.length;
-        char[] key = keyWord.toCharArray();
-        char decryptedMsg[] = new char[msgLen];
-        for(int i = 0; i < msgLen; ++i)
-            decryptedMsg[i] = (char)((((decryptedMsg[i] - key[i]) + 26) % 26) + 'A');
-        return decryptedMsg.toString();
+        StringBuilder result = new StringBuilder();
+        String messageUpper = message.toUpperCase();
+        String keyWordUpper = removeNumbersFromString(keyWord).toUpperCase();
+        for (int i = 0, j = 0; i < messageUpper.length(); i++) {
+            char c = messageUpper.charAt(i);
+            if (c < 'A' || c > 'Z')
+                continue;
+            result.append((char) ((c - keyWordUpper.charAt(j) + 26) % 26 + 'A'));
+            j = ++j % keyWordUpper.length();
+        }
+        return result.toString();
+    }
+
+    public static String removeNumbersFromString(String inputString) {
+        // Create a StringBuilder object
+        StringBuilder sb = new StringBuilder();
+
+        // Traverse through the string
+        for (int i = 0; i < inputString.length(); i++) {
+
+            // Check if the character is a number
+            if (!Character.isDigit(inputString.charAt(i))) {
+                // Append the character to the StringBuilder
+                sb.append(inputString.charAt(i));
+            }
+        }
+
+        // Return the string without numbers
+        return sb.toString();
     }
 
     public void setMessage(String message) {
