@@ -6,4 +6,7 @@ public interface CipherInterface {
 
     String decrypt();
 
+    void setMessage(String message);
+    void setKey(String key);
+
 }

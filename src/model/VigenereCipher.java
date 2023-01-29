@@ -19,8 +19,7 @@ public class VigenereCipher implements CipherInterface {
         StringBuilder result = new StringBuilder();
         String messageUpper = message.toUpperCase();
         String keyWordUpper = removeNumbersFromString(keyWord).toUpperCase();
-        for (int i = 0, j = 0; i < messageUpper.length(); i++)
-        {
+        for (int i = 0, j = 0; i < messageUpper.length(); i++) {
             char c = messageUpper.charAt(i);
             if (c < 'A' || c > 'Z')
                 continue;
@@ -67,7 +66,13 @@ public class VigenereCipher implements CipherInterface {
         this.message = message;
     }
 
-    public void setKeyWord(String keyWord) {
-        this.keyWord = keyWord;
+    @Override
+    public void setKey(String key) {
+        this.keyWord = key;
+    }
+
+    @Override
+    public String toString() {
+        return "Vigenere Cipher";
     }
 }

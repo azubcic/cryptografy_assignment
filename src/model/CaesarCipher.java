@@ -48,7 +48,17 @@ public class CaesarCipher implements CipherInterface {
         this.message = message;
     }
 
-    public void setShiftKey(int shiftKey) {
-        this.shiftKey = shiftKey;
+    @Override
+    public void setKey(String key) {
+        try {
+            this.shiftKey = Integer.parseInt(key);
+        } catch (NumberFormatException nfe) {
+            System.out.println("Key is a integer value");
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Caesar Cipher";
     }
 }

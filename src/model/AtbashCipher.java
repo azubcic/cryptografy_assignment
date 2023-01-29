@@ -94,7 +94,17 @@ public class AtbashCipher implements CipherInterface {
         return message;
     }
 
+    @Override
+    public void setKey(String key) {
+        // no key
+    }
+
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    @Override
+    public String toString() {
+        return "Atbash Cipher";
     }
 }
